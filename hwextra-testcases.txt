@@ -1,0 +1,157 @@
+=================================================
+Testcase 1 
+
+Malloc 10,1010,20,2020
+Output - 
+Chunk starts at 0x602100 and ends at 0x702100
+Chunk size - 1048576
+Size of mementry structure is 32
+memory allocated at address 0x602120
+total memory allocated 10 bytes 
+memory allocated at address 0x7020f6
+total memory allocated 1020 bytes 
+memory allocated at address 0x60214a
+total memory allocated 1040 bytes 
+memory allocated at address 0x701ce4
+total memory allocated 3060 bytes 
+
+==================================================
+Testcase 2
+Malloc 1000000,1010,20,2020
+Chunk starts at 0x602100 and ends at 0x702100
+Chunk size - 1048576
+Size of mementry structure is 32
+malloc failed
+memory allocated at address 0x60dec0
+total memory allocated 1010 bytes 
+memory allocated at address 0x602120
+total memory allocated 1030 bytes 
+memory allocated at address 0x60daae
+total memory allocated 3050 bytes 
+
+==================================================
+Testcase 3
+Malloc 10,11010,20000,20020, free(0), free(1st chunk), free(4th chunk), free(4th chunk)
+Output -
+Chunk starts at 0x602100 and ends at 0x702100
+Chunk size - 1048576
+Size of mementry structure is 32
+memory allocated at address 0x602120
+total memory allocated 10 bytes 
+memory allocated at address 0x7020f6
+total memory allocated 11020 bytes 
+memory allocated at address 0x60214a
+total memory allocated 31020 bytes 
+memory allocated at address 0x701ce4
+total memory allocated 51040 bytes 
+input is not in the block
+file  malloc.c line 235
+freed block at address 0x602120
+total memory allocated 51030 bytes 
+freed block at address 0x701ce4
+total memory allocated 49010 bytes 
+We're trying to free a chunk already freed
+file malloc.c line 241
+
+==================================================
+Testcase 4 
+
+Malloc 1048578
+Output - 
+enter size between 0 and 1<<20
+
+==================================================
+Testcase 5 
+
+Malloc 10, 20, 30, 40, 1048570
+Output - 
+Chunk starts at 0x602100 and ends at 0x702100
+Chunk size - 1048576
+Size of mementry structure is 32
+memory allocated at address 0x602120
+total memory allocated 10 bytes 
+memory allocated at address 0x7020f6
+total memory allocated 1020 bytes 
+memory allocated at address 0x60214a
+total memory allocated 1040 bytes 
+memory allocated at address 0x701ce4
+total memory allocated 3060 bytes 
+
+==================================================
+Testcase 6 
+
+int main(int argc, const char * argv[])
+{
+    
+    char * boo = malloc(95);
+    char * hi = malloc(95);
+    char * i = malloc(95);
+    char * am = malloc(95);
+    free(am);
+    char * small = malloc(95);
+    
+    return 0;
+}
+Output- (in addition to all malloc statements)
+freed block at address 0x1000011dd
+
+==================================================
+Testcase 7 
+
+int main(int argc, const char * argv[])
+{
+    
+    char * hello = malloc(95);
+    char * there = malloc(95);
+    char * my = malloc(95);
+    char * tiny = malloc(95);
+    free(hello);
+    free(my);
+    char * mallocvar = malloc(214);
+    
+    
+    return 0;
+}
+Output- (in addition to all malloc statements)
+freed block at address 0x100001060
+freed block at address 0x10000115e
+
+==================================================
+Testcase 8 
+
+int main(int argc, const char * argv[])
+{
+    
+    char * hi = malloc(95);
+    char * im = malloc(95);
+    char * the = malloc(95);
+    char * small = malloc(95);
+    free(im);
+    free(small);
+    char * malloc = malloc(15);
+    
+    
+    return 0;
+}
+Output- (in addition to all malloc statements) produces error
+freed block at address 0x1000010df
+freed block at address 0x1000011dd
+memory full
+
+==================================================
+Testcase 9 
+
+ int main(int argc, const char * argv[])
+{
+    int y;
+    
+   char * boo = malloc(95);
+    char * scary = malloc(162);
+    free(y);
+    return 0;}
+Output-
+input is not in the block
+
+==================================================
+
+
